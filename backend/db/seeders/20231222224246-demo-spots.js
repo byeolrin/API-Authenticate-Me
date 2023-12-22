@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -93,7 +92,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      city: { [Op.in]: ['Los Angeles'] }
+      city: { [Op.in]: ['Los Angeles', 'New York', 'Boston', 'Sacramento'] }
     }, {});
   }
 };
