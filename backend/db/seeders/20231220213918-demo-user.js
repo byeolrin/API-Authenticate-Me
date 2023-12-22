@@ -12,25 +12,39 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'temp',
-        lastName: 'temp'
+        email: 'ledennisjamesthe2nd@gmail.com',
+        username: 'enchuu205',
+        hashedPassword: bcrypt.hashSync('ripwemisshim'),
+        firstName: 'Andrew',
+        lastName: 'Ly'
       },
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2'),
-        firstName: 'temp',
-        lastName: 'temp'
+        email: 'faker2@gmail.com',
+        username: 'byeolrin',
+        hashedPassword: bcrypt.hashSync('nextworldswinner'),
+        firstName: 'Gary',
+        lastName: 'Cheung'
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3'),
-        firstName: 'temp',
-        lastName: 'temp'
+        email: 'theshy2@gmail.com',
+        username: 'TylerHan1226',
+        hashedPassword: bcrypt.hashSync('unluckystopfeeding'),
+        firstName: 'Tyler',
+        lastName: 'Han'
+      },
+      {
+        email: 'kevinfantetokounmpo@gmail.com',
+        username: 'Kyfan01',
+        hashedPassword: bcrypt.hashSync('greekbballlegend'),
+        firstName: 'Kevin',
+        lastName: 'Fan'
+      },
+      {
+        email: 'ledennisjames@gmail.com',
+        username: 'dennisbtw',
+        hashedPassword: bcrypt.hashSync('lebronfanboy'),
+        firstName: 'Kevin',
+        lastName: 'Fan'
       }
     ], { validate: true });
   },
@@ -38,7 +52,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['enchuu205', 'byeolrin', 'TylerHan1226', 'Kyfan01', 'dennisbtw'] }
     }, {});
   }
 };
