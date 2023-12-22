@@ -43,8 +43,8 @@ module.exports = {
         email: 'ledennisjames@gmail.com',
         username: 'dennisbtw',
         hashedPassword: bcrypt.hashSync('lebronfanboy'),
-        firstName: 'Kevin',
-        lastName: 'Fan'
+        firstName: 'Dennis',
+        lastName: 'Ma'
       }
     ], { validate: true });
   },
