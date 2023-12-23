@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 const { Review } = require('../models')
 
-let options = { tableName: 'Spots'};
+let options = { tableName: 'Reviews'};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
