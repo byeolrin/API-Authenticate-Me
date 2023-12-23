@@ -38,7 +38,7 @@ module.exports = {
       review: 'This place is so much fun. You can practically do anything you want here!',
       stars: 5,
     }
-   ])
+   ], { validate: true });
   },
 
   async down (queryInterface, Sequelize) {

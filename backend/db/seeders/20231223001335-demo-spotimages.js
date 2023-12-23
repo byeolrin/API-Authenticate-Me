@@ -45,7 +45,7 @@ module.exports = {
       url: 'https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2F5bxwpa0sgsny.jpg',
       preview: true
     }
-   ])
+   ], { validate: true });
   },
 
   async down (queryInterface, Sequelize) {

@@ -80,7 +80,7 @@ module.exports = {
       description: 'A 2D place and world to live in.',
       price: 182348.88
     }
-   ])
+   ], { validate: true });
   },
 
   async down (queryInterface, Sequelize) {

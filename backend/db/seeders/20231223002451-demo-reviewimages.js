@@ -32,7 +32,7 @@ module.exports = {
       reviewId: 3,
       url: 'https://nxcache.nexon.net/cms/2021/q4/2111/in-post-banner-1100x225-maplestory-december-29-cash-shop-update.png'
     }
-   ])
+   ], { validate: true });
   },
 
   async down (queryInterface, Sequelize) {
