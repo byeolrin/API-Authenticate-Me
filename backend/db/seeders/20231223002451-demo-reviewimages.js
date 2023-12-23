@@ -1,9 +1,9 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-const { Review } = require('../models')
+const { ReviewImage } = require('../models')
 
-let options = { tableName: 'Reviews' };
+let options = { tableName: 'ReviewImages' };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -19,24 +19,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await Review.bulkCreate([
+   await ReviewImage.bulkCreate([
     {
-      spotId: 1,
-      userId: 5,
-      review: 'This place provided everything we need but needs to cleaned up  better.',
-      stars: 3,
+      reviewId: 1,
+      url: 'https://c1.vgtstatic.com/thumb/2/4/241586-v2-xl/offlinetv-house.jpg'
     },
     {
-      spotId: 2,
-      userId: 2,
-      review: 'This place brings back a lot of nostalgic memories.',
-      stars: 4,
+      reviewId: 2,
+      url: 'https://kokorojapanstore.com/cdn/shop/articles/Pokemon_Center1_1024x1024.jpg?v=1630683901'
     },
     {
-      spotId: 5,
-      userId: 4,
-      review: 'This place is so much fun. You can practically do anything you want here!',
-      stars: 5,
+      reviewId: 3,
+      url: 'https://nxcache.nexon.net/cms/2021/q4/2111/in-post-banner-1100x225-maplestory-december-29-cash-shop-update.png'
     }
    ])
   },
@@ -50,7 +44,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1,2,3,4,5] }
+      reviewId: { [Op.in]: [1,2,3,4,5] }
     }, {});
   }
 };
