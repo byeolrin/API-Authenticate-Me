@@ -57,7 +57,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.DECIMAL
-    }
+    },
+    // avgRating: {
+    //   type: DataTypes.VIRTUAL,
+    //   get() {
+    //     return this.getDataValue('avgRating')
+    //   },
+
+    //   set(val) {
+    //     this.setDataValue('avgRating', val)
+    //   }
+    // }
   }, {
     sequelize,
     modelName: 'Spot',
