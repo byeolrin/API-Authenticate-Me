@@ -359,6 +359,7 @@ router.get('/:spotId/reviews', async (req, res) => {
     })
 })
 
+// Making a review on the current Spot
 router.post('/:spotId/reviews', requireAuth, validateReviews, async (req, res) => {
     const { review, stars } = req.body;
     const { spotId } = req.params;
