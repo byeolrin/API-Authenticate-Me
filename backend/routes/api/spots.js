@@ -440,10 +440,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const { startDate, endDate } = req.body;
-    const bookingStartDate = new Date(startDate);
-    const bookingEndDate = new Date(endDate);
-
     const currentDate = new Date();
+
     const spot = await Spot.findByPk(spotId)
 
     if (!spot) {
@@ -473,7 +471,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const existBooking = await Booking.findOne({
         where: {
             spotId: spotId,
-            [Op.or]: [
+            [Op.and]: [
                 { startDate: { [Op.lte]: new Date(endDate) } },
                 { endDate: { [Op.gte]: new Date(startDate) } }
             ]
