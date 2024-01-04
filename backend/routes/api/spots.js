@@ -38,13 +38,23 @@ const validateSpots = [
     handleValidationErrors
   ];
 
-  const validateReviews = [
+const validateReviews = [
     check('review')
         .exists({ checkFalsy: true })
         .withMessage('Review text is required'),
     check('stars')
         .isInt({ min: 1 , max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ]
+
+const validateBookings = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .withMessage('startDate cannot be in the past'),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .withMessage('endDate cannot be on or before startDate'),
     handleValidationErrors
   ]
 
@@ -432,6 +442,35 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             Bookings: bookings
         })
     }
+})
+
+// Create a booking from Spot based on Spot's id
+router.post('/:spotId/bookings', requireAuth, validateBookings, async (req, res) => {
+    const { spotId } = req.params;
+    const { startDate, endDate } = req.body;
+
+    const spot = await Spot.findByPk(spotId)
+
+    if (!spot) {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+    
+    if (req.user.id !== spot.ownerId) {
+        const newBooking = await Booking.create({
+            spotId: spotId,
+            userId: req.user.id,
+            startDate,
+            endDate
+        })
+        return res.json(newBooking)
+    } else {
+        return res.status(403).json({
+            message: "Owners can't booked their own place"
+        })
+    }
+
 })
 
 module.exports = router;
