@@ -6,6 +6,8 @@ const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const { Op } = require('sequelize')
+
 const router = express.Router();
 
 const validateSpots = [
@@ -47,17 +49,7 @@ const validateReviews = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ]
-
-const validateBookings = [
-    check('startDate')
-        .exists({ checkFalsy: true })
-        .withMessage('startDate cannot be in the past'),
-    check('endDate')
-        .exists({ checkFalsy: true })
-        .withMessage('endDate cannot be on or before startDate'),
-    handleValidationErrors
-  ]
-
+  
 // Get all Spots owned by the Current User
 
 router.get('/current', requireAuth, async (req, res) => {
@@ -445,7 +437,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 })
 
 // Create a booking from Spot based on Spot's id
-router.post('/:spotId/bookings', requireAuth, validateBookings, async (req, res) => {
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const { startDate, endDate } = req.body;
 
@@ -454,6 +446,50 @@ router.post('/:spotId/bookings', requireAuth, validateBookings, async (req, res)
     if (!spot) {
         return res.status(404).json({
             message: "Spot couldn't be found"
+        })
+    }
+
+    const currentDate = new Date();
+    if (new Date(startDate) < currentDate) {
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: {
+                startDate: "startDate cannot be in the past"
+            }
+        })
+    }
+
+    if (new Date(endDate) <= new Date(startDate)) {
+        return res.status(400).json({
+            message: "Bad Request",
+            errors: {
+                endDate: "endDate cannot be on or before startDate"
+            }
+        })
+    }
+
+    const existBooking = await Booking.findOne({
+        where: {
+            spotId: spotId,
+            [Op.or]: [
+                {startDate: {
+                    [Op.between]: [startDate, endDate]
+                }},
+                {endDate: {
+                    [Op.between]: [startDate, endDate]
+                }}
+            ]
+
+        }
+    })
+
+    if (existBooking) {
+        return res.status(403).json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            error: {
+                startDate: "Start date conflicts with an existing booking",
+                endDate: "End Date conflicts with an existing booking"
+            }
         })
     }
     
