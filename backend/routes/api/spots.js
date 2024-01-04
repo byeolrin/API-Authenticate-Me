@@ -440,7 +440,10 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const { startDate, endDate } = req.body;
+    const bookingStartDate = new Date(startDate);
+    const bookingEndDate = new Date(endDate);
 
+    const currentDate = new Date();
     const spot = await Spot.findByPk(spotId)
 
     if (!spot) {
@@ -449,7 +452,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         })
     }
 
-    const currentDate = new Date();
     if (new Date(startDate) < currentDate) {
         return res.status(400).json({
             message: "Bad Request",
@@ -472,14 +474,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         where: {
             spotId: spotId,
             [Op.or]: [
-                {startDate: {
-                    [Op.between]: [startDate, endDate]
-                }},
-                {endDate: {
-                    [Op.between]: [startDate, endDate]
-                }}
+                { startDate: { [Op.lte]: new Date(endDate) } },
+                { endDate: { [Op.gte]: new Date(startDate) } }
             ]
-
         }
     })
 
