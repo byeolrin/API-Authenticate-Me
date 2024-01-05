@@ -3,7 +3,7 @@ const express = require('express')
 const { Spot, Review, SpotImage, User, ReviewImage, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Op } = require('sequelize')
@@ -21,12 +21,12 @@ const validateSpots = [
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
     check('lat')
-        .isFloat({ min: -90.0 })
-        .isFloat({ max: 90.0 })
+        .isFloat({ min: -90 })
+        .isFloat({ max: 90 })
         .withMessage('Latitude must be within -90 and 90'),
     check('lng')
-        .isFloat({ min: -180.0 })
-        .isLength({ max: 180.0 })
+        .isFloat({ min: -180 })
+        .isLength({ max: 180 })
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
         .isLength({ max: 50 })
@@ -47,6 +47,42 @@ const validateReviews = [
     check('stars')
         .isInt({ min: 1 , max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ]
+
+  const validateQuery = [
+    query('page')
+        .optional()
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1'),
+    query('size')
+        .optional()
+        .isInt({ min: 1 })
+        .withMessage('Size must be greater than or equal to 1'),
+    query('maxLat')
+        .optional()
+        .isFloat ({ min: -180, max: 180 })
+        .withMessage('Maximum latitude is invalid'),
+    query('minLat')
+        .optional()
+        .isFloat ({ min: -180, max: 180 })
+        .withMessage('Minimum latitude is invalid'),
+    query('maxLng')
+        .optional()
+        .isFloat ({ min: -180, max: 180 })
+        .withMessage('Maximum longitude is invalid'),
+    query('minLng')
+        .optional()
+        .isFloat ({ min: -180, max: 180 })
+        .withMessage('Minimum longitude is invalid'),
+    query('maxPrice')
+        .optional()
+        .isFloat ({ min: 0 })
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    query('minPrice')
+        .optional()
+        .isFloat ({ min: 0 })
+        .withMessage('Minimum price must be greater than or equal to 0'),
     handleValidationErrors
   ]
   
@@ -153,8 +189,53 @@ router.get('/:spotId', async (req, res) => {
 
 // Get All Spots
 
-router.get('/', async (req, res) => {
-    const spots = await Spot.findAll();
+router.get('/', validateQuery, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    if (!size) size = 20;
+    page = page || 1;
+
+    const queryObj = {
+        where: {}
+    }
+
+    const pagination = {};
+
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+
+    if (minLat) {
+        queryObj.where.lat = { [Op.gte]: minLat }
+    }
+
+    if (maxLat) {
+        queryObj.where.lat = { [Op.lte]: maxLat }
+    }
+
+    if (minLat && maxLat) {
+        queryObj.where.lat = { [Op.between]: [minLat, maxLat] }
+    }
+
+    if (minLng) {
+        queryObj.where.lng = { [Op.gte]: minLng }
+    }
+
+    if (maxLng) {
+        queryObj.where.lng = { [Op.lte]: maxLng }
+    }
+
+    if (minLng && maxLng) {
+        queryObj.where.lng = { [Op.between]: [minLng, maxLng] }
+    }
+
+    if (minPrice || maxPrice) {
+        queryObj.where.price = { [Op.between]: [minPrice, maxPrice] }
+    }
+
+    const spots = await Spot.findAll({
+        ...queryObj,
+        ...pagination
+    });
 
     let avgRating;
 
@@ -190,7 +271,9 @@ router.get('/', async (req, res) => {
         }
     }
     res.json({
-        Spots: spots
+        Spots: spots,
+        page,
+        size
     })
 })
 
