@@ -17,16 +17,17 @@ const validateSpots = [
     check('city')
         .exists({ checkFalsy: true })
         .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage('State is required'),
     check('country')
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
     check('lat')
-        .isFloat({ min: -90 })
-        .isFloat({ max: 90 })
+        .isFloat({ min: -90, max: 90 })
         .withMessage('Latitude must be within -90 and 90'),
     check('lng')
-        .isFloat({ min: -180 })
-        .isLength({ max: 180 })
+        .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
         .isLength({ max: 50 })
@@ -61,11 +62,11 @@ const validateReviews = [
         .withMessage('Size must be greater than or equal to 1'),
     query('maxLat')
         .optional()
-        .isFloat ({ min: -180, max: 180 })
+        .isFloat ({ min: -90, max: 90 })
         .withMessage('Maximum latitude is invalid'),
     query('minLat')
-        .optional()
-        .isFloat ({ min: -180, max: 180 })
+        .optional() 
+        .isFloat ({ min: -90, max: 90 })
         .withMessage('Minimum latitude is invalid'),
     query('maxLng')
         .optional()
@@ -192,7 +193,10 @@ router.get('/:spotId', async (req, res) => {
 router.get('/', validateQuery, async (req, res) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
+
     if (!size) size = 20;
+    if (page > 10) page = 10;
+    if (size > 20) size = 20;
     page = page || 1;
 
     const queryObj = {
@@ -228,7 +232,15 @@ router.get('/', validateQuery, async (req, res) => {
         queryObj.where.lng = { [Op.between]: [minLng, maxLng] }
     }
 
-    if (minPrice || maxPrice) {
+    if (minPrice) {
+        queryObj.where.price = { [Op.gte]: minPrice }
+    }
+
+    if (maxPrice) {
+        queryObj.where.price = { [Op.lte]: maxPrice }
+    }
+
+    if (minPrice && maxPrice) {
         queryObj.where.price = { [Op.between]: [minPrice, maxPrice] }
     }
 
