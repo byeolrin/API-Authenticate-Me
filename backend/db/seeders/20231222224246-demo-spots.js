@@ -79,6 +79,42 @@ module.exports = {
       name: 'Gary\'s House',
       description: 'A 2D place and world to live in.',
       price: 182348.88
+    },
+    {
+      ownerId: 2,
+      address: '512 Ice Lane',
+      city: 'North Pole',
+      state: 'Santa\'s House' ,
+      country: 'Arctic Ocean',
+      lat: 90.0000,
+      lng: 135.0000,
+      name: 'The North Pole',
+      description: 'This is the place where Santa makes all his presents!',
+      price: 2348.99
+    },
+    {
+      ownerId: 2,
+      address: '12333 W Olympic Blvd',
+      city: 'Los Angeles',
+      state: 'California' ,
+      country: 'United States of America',
+      lat: 34.0326,
+      lng: 118.4575,
+      name: 'Riot Headquarters',
+      description: 'Where all the Riot Employees screw up the game!',
+      price: 245.99
+    },
+    {
+      ownerId: 2,
+      address: '627 Seolleung-ro',
+      city: 'Gangnam-gu',
+      state: 'Seoul' ,
+      country: 'South Korea',
+      lat: 37.5126,
+      lng: 127.0428,
+      name: 'T1',
+      description: 'Best League of Legends Team\'s Headquarter',
+      price: 25.99
     }
    ], { validate: true });
   },
@@ -92,7 +128,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      city: { [Op.in]: ['Los Angeles', 'New York', 'Boston', 'Sacramento'] }
+      city: { [Op.in]: ['Los Angeles', 'New York', 'Boston', 'Sacramento', 'North Pole', 'Gangnam-gu'] }
     }, {});
   }
 };

@@ -45,6 +45,41 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('lebronfanboy'),
         firstName: 'Dennis',
         lastName: 'Ma'
+      },
+      {
+        email: 'testing1@gmail.com',
+        username: 'battlecat',
+        hashedPassword: bcrypt.hashSync('testingpassword1'),
+        firstName: 'Vincent',
+        lastName: 'Li'
+      },
+      {
+        email: 'testing2@gmail.com',
+        username: 'buymebread',
+        hashedPassword: bcrypt.hashSync('youreaproblem'),
+        firstName: 'James',
+        lastName: 'Lim'
+      },
+      {
+        email: 'testing3@gmail.com',
+        username: 'byebyegpa',
+        hashedPassword: bcrypt.hashSync('huhurcrazy'),
+        firstName: 'Nathan',
+        lastName: 'Lam'
+      },
+      {
+        email: 'testing4@gmail.com',
+        username: 'burgerking',
+        hashedPassword: bcrypt.hashSync('nuggetfries'),
+        firstName: 'Nolan',
+        lastName: 'Leung'
+      },
+      {
+        email: 'testing5@gmail.com',
+        username: 'bozer',
+        hashedPassword: bcrypt.hashSync('lolololol'),
+        firstName: 'Raymond',
+        lastName: 'Pan'
       }
     ], { validate: true });
   },
@@ -52,7 +87,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['enchuu205', 'byeolrin', 'TylerHan1226', 'Kyfan01', 'dennisbtw'] }
+      username: { [Op.in]: ['enchuu205', 'byeolrin', 'TylerHan1226', 'Kyfan01', 'dennisbtw', 'battlecat', 'buymebread', 'byebyegpa', 'burgerking', 'bozer'] }
     }, {});
   }
 };
