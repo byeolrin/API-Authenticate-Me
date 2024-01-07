@@ -60,6 +60,18 @@ router.get('/current', requireAuth, async (req, res) => {
             jsonReview.Spot.previewImage = null
         }
 
+        if (jsonReview.Spot.lat) {
+            jsonReview.Spot.lat = parseFloat(jsonReview.Spot.lat)
+        }
+
+        if (jsonReview.Spot.lng) {
+            jsonReview.Spot.lng = parseFloat(jsonReview.Spot.lng)
+        }
+
+        if (jsonReview.Spot.price) {
+            jsonReview.Spot.price = parseFloat(jsonReview.Spot.price)
+        }
+
         delete jsonReview.Spot.SpotImages
         reviews[i] = jsonReview
     }
