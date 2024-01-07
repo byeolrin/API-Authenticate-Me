@@ -326,12 +326,17 @@ router.post('/', requireAuth, validateSpots, async (req, res) => {
         city,
         state,
         country,
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        lat,
+        lng,
         name,
         description,
-        price: parseFloat(price)
+        price
     })
+
+    if (spot.lat) spot.lat = parseFloat(lat);
+    if (spot.lng) spot.lng = parseFloat(lng);
+    if (spot.price) spot.price = parseFloat(price);
+    
     res.json(spot);
 })
 
