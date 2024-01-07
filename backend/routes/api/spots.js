@@ -209,39 +209,39 @@ router.get('/', validateQuery, async (req, res) => {
     pagination.offset = size * (page - 1);
 
     if (minLat) {
-        queryObj.where.lat = { [Op.gte]: minLat }
+        queryObj.where.lat = parseFloat({ [Op.gte]: minLat })
     }
 
     if (maxLat) {
-        queryObj.where.lat = { [Op.lte]: maxLat }
+        queryObj.where.lat = parseFloat({ [Op.lte]: maxLat })
     }
 
     if (minLat && maxLat) {
-        queryObj.where.lat = { [Op.between]: [minLat, maxLat] }
+        queryObj.where.lat = parseFloat({ [Op.between]: [minLat, maxLat] })
     }
 
     if (minLng) {
-        queryObj.where.lng = { [Op.gte]: minLng }
+        queryObj.where.lng = parseFloat({ [Op.gte]: minLng })
     }
 
     if (maxLng) {
-        queryObj.where.lng = { [Op.lte]: maxLng }
+        queryObj.where.lng = parseFloat({ [Op.lte]: maxLng })
     }
 
     if (minLng && maxLng) {
-        queryObj.where.lng = { [Op.between]: [minLng, maxLng] }
+        queryObj.where.lng = parseFloat({ [Op.between]: [minLng, maxLng] })
     }
 
     if (minPrice) {
-        queryObj.where.price = { [Op.gte]: minPrice }
+        queryObj.where.price = parseFloat({ [Op.gte]: minPrice })
     }
 
     if (maxPrice) {
-        queryObj.where.price = { [Op.lte]: maxPrice }
+        queryObj.where.price = parseFloat({ [Op.lte]: maxPrice })
     }
 
     if (minPrice && maxPrice) {
-        queryObj.where.price = { [Op.between]: [minPrice, maxPrice] }
+        queryObj.where.price = parseFloat({ [Op.between]: [minPrice, maxPrice] })
     }
 
     const spots = await Spot.findAll({
@@ -283,23 +283,7 @@ router.get('/', validateQuery, async (req, res) => {
         }
     }
     res.json({
-        Spots: {
-            id,
-            ownerId,
-            address,
-            city,
-            state,
-            country,
-            lat: parseFloat(spots.lat),
-            lng: parseFloat(spots.lng),
-            name,
-            description,
-            price: parseFloat(spots.price),
-            createdAt,
-            updatedAt,
-            avgRating,
-            previewImage
-        },
+        Spots: spots,
         page,
         size
     })
