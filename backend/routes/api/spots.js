@@ -281,6 +281,10 @@ router.get('/', validateQuery, async (req, res) => {
         } else {
             spots[i].setDataValue('previewImage', imageLink.url)
         }
+
+        if (spots[i].lat) {
+            spots[i].lat = parseFloat(spots.lat)
+        }
     }
     res.json({
         Spots: spots,
