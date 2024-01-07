@@ -199,13 +199,6 @@ router.get('/', validateQuery, async (req, res) => {
     if (size > 20) size = 20;
     page = page || 1;
 
-    minLat = parseFloat(minLat);
-    maxLat = parseFloat(maxLat);
-    minLng = parseFloat(minLng);
-    maxLng = parseFloat(maxLng);
-    minPrice = parseFloat(minPrice);
-    maxPrice = parseFloat(maxPrice);
-
     const queryObj = {
         where: {}
     }
@@ -290,7 +283,23 @@ router.get('/', validateQuery, async (req, res) => {
         }
     }
     res.json({
-        Spots: spots,
+        Spots: {
+            id,
+            ownerId,
+            address,
+            city,
+            state,
+            country,
+            lat: parseFloat(spots.lat),
+            lng: parseFloat(spots.lng),
+            name,
+            description,
+            price: parseFloat(spots.price),
+            createdAt,
+            updatedAt,
+            avgRating,
+            previewImage
+        },
         page,
         size
     })
