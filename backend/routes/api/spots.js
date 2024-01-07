@@ -129,6 +129,18 @@ router.get('/current', requireAuth, async (req, res) => {
         } else {
             spots[i].setDataValue('previewImage', imageLink.url)
         }
+
+        if (spots[i].lat) {
+            spots[i].setDataValue('lat', parseFloat(spots[i].lat))
+        }
+
+        if (spots[i].lng) {
+            spots[i].setDataValue('lng', parseFloat(spots[i].lng))
+        }
+
+        if (spots[i].price) {
+            spots[i].setDataValue('price', parseFloat(spots[i].price))
+        }
     }
     res.json({
         Spots: spots
@@ -180,6 +192,9 @@ router.get('/:spotId', async (req, res) => {
         avgStarRating = (totalStars / reviews)
     }
 
+    spotDetails.lat = parseFloat(spot.lat);
+    spotDetails.lng = parseFloat(spot.lng);
+    spotDetails.price = parseFloat(spot.price);
     spotDetails.numReviews = reviews;
     spotDetails.avgStarRating = avgStarRating;
     spotDetails.SpotImages = spotImage;
@@ -311,11 +326,11 @@ router.post('/', requireAuth, validateSpots, async (req, res) => {
         city,
         state,
         country,
-        lat,
-        lng,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
         name,
         description,
-        price
+        price: parseFloat(price)
     })
     res.json(spot);
 })
@@ -387,11 +402,11 @@ router.put('/:spotId', requireAuth, validateSpots, async (req, res) => {
     }
 
     if (lat) {
-        spot.lat = lat
+        spot.lat = parseFloat(lat)
     }
 
     if (lng) {
-        spot.lng = lng
+        spot.lng = parseFloat(lng)
     }
 
     if (name) {
@@ -403,7 +418,7 @@ router.put('/:spotId', requireAuth, validateSpots, async (req, res) => {
     }
 
     if (price) {
-        spot.price = price
+        spot.price = parseFloat(price)
     }
 
     await spot.save()
