@@ -37,6 +37,19 @@ router.get('/current', requireAuth, async (req, res) => {
         } else {
             previewImage.Spot.previewImage = null
         }
+
+        if (previewImage.Spot.lat) {
+            previewImage.Spot.lat = parseFloat(previewImage.Spot.lat)
+        }
+
+        if (previewImage.Spot.lng) {
+            previewImage.Spot.lng = parseFloat(previewImage.Spot.lng)
+        }
+
+        if (previewImage.Spot.price) {
+            previewImage.Spot.price = parseFloat(previewImage.Spot.price)
+        }
+        
         bookings[i] = previewImage
     }
     res.json({
