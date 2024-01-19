@@ -17,16 +17,17 @@ const validateSpots = [
     check('city')
         .exists({ checkFalsy: true })
         .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage('State is required'),
     check('country')
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
     check('lat')
-        .isFloat({ min: -90 })
-        .isFloat({ max: 90 })
+        .isFloat({ min: -90, max: 90 })
         .withMessage('Latitude must be within -90 and 90'),
     check('lng')
-        .isFloat({ min: -180 })
-        .isLength({ max: 180 })
+        .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
         .isLength({ max: 50 })
@@ -61,11 +62,11 @@ const validateReviews = [
         .withMessage('Size must be greater than or equal to 1'),
     query('maxLat')
         .optional()
-        .isFloat ({ min: -180, max: 180 })
+        .isFloat ({ min: -90, max: 90 })
         .withMessage('Maximum latitude is invalid'),
     query('minLat')
-        .optional()
-        .isFloat ({ min: -180, max: 180 })
+        .optional() 
+        .isFloat ({ min: -90, max: 90 })
         .withMessage('Minimum latitude is invalid'),
     query('maxLng')
         .optional()
@@ -128,6 +129,18 @@ router.get('/current', requireAuth, async (req, res) => {
         } else {
             spots[i].setDataValue('previewImage', imageLink.url)
         }
+
+        if (spots[i].lat) {
+            spots[i].setDataValue('lat', parseFloat(spots[i].lat))
+        }
+
+        if (spots[i].lng) {
+            spots[i].setDataValue('lng', parseFloat(spots[i].lng))
+        }
+
+        if (spots[i].price) {
+            spots[i].setDataValue('price', parseFloat(spots[i].price))
+        }
     }
     res.json({
         Spots: spots
@@ -179,6 +192,9 @@ router.get('/:spotId', async (req, res) => {
         avgStarRating = (totalStars / reviews)
     }
 
+    spotDetails.lat = parseFloat(spot.lat);
+    spotDetails.lng = parseFloat(spot.lng);
+    spotDetails.price = parseFloat(spot.price);
     spotDetails.numReviews = reviews;
     spotDetails.avgStarRating = avgStarRating;
     spotDetails.SpotImages = spotImage;
@@ -192,7 +208,10 @@ router.get('/:spotId', async (req, res) => {
 router.get('/', validateQuery, async (req, res) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
+
     if (!size) size = 20;
+    if (page > 10) page = 10;
+    if (size > 20) size = 20;
     page = page || 1;
 
     const queryObj = {
@@ -228,7 +247,15 @@ router.get('/', validateQuery, async (req, res) => {
         queryObj.where.lng = { [Op.between]: [minLng, maxLng] }
     }
 
-    if (minPrice || maxPrice) {
+    if (minPrice) {
+        queryObj.where.price = { [Op.gte]: minPrice }
+    }
+
+    if (maxPrice) {
+        queryObj.where.price = { [Op.lte]: maxPrice }
+    }
+
+    if (minPrice && maxPrice) {
         queryObj.where.price = { [Op.between]: [minPrice, maxPrice] }
     }
 
@@ -269,11 +296,23 @@ router.get('/', validateQuery, async (req, res) => {
         } else {
             spots[i].setDataValue('previewImage', imageLink.url)
         }
+
+        if (spots[i].lat) {
+            spots[i].setDataValue('lat', parseFloat(spots[i].lat))
+        }
+
+        if (spots[i].lng) {
+            spots[i].setDataValue('lng', parseFloat(spots[i].lng))
+        }
+
+        if (spots[i].price) {
+            spots[i].setDataValue('price', parseFloat(spots[i].price))
+        }
     }
     res.json({
         Spots: spots,
-        page,
-        size
+        page: parseInt(page),
+        size: parseInt(size)
     })
 })
 
@@ -293,6 +332,11 @@ router.post('/', requireAuth, validateSpots, async (req, res) => {
         description,
         price
     })
+
+    if (spot.lat) spot.lat = parseFloat(lat);
+    if (spot.lng) spot.lng = parseFloat(lng);
+    if (spot.price) spot.price = parseFloat(price);
+    
     res.json(spot);
 })
 
@@ -363,11 +407,11 @@ router.put('/:spotId', requireAuth, validateSpots, async (req, res) => {
     }
 
     if (lat) {
-        spot.lat = lat
+        spot.lat = parseFloat(lat)
     }
 
     if (lng) {
-        spot.lng = lng
+        spot.lng = parseFloat(lng)
     }
 
     if (name) {
@@ -379,7 +423,7 @@ router.put('/:spotId', requireAuth, validateSpots, async (req, res) => {
     }
 
     if (price) {
-        spot.price = price
+        spot.price = parseFloat(price)
     }
 
     await spot.save()

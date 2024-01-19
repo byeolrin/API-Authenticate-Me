@@ -23,32 +23,32 @@ module.exports = {
     {
       spotId: 1,
       userId: 5,
-      startDate: '12/25/23',
-      endDate: '1/2/24'
+      startDate: '12-25-23',
+      endDate: '1-2-24'
     },
     {
       spotId: 2,
       userId: 2,
-      startDate: '1/22/24',
-      endDate: '2/10/24'
+      startDate: '1-22-24',
+      endDate: '2-10-24'
     },
     {
       spotId: 3,
       userId: 1,
-      startDate: '3/15/24',
-      endDate: '3/18/24'
+      startDate: '3-15-24',
+      endDate: '3-18-24'
     },
     {
       spotId: 4,
       userId: 4,
-      startDate: '12/25/23',
-      endDate: '1/2/24'
+      startDate: '12-25-23',
+      endDate: '1-2-24'
     },
     {
       spotId: 5,
       userId: 3,
-      startDate: '12/25/23',
-      endDate: '1/2/24'
+      startDate: '12-25-23',
+      endDate: '1-2-24'
     }
    ], { validate: true });
   },

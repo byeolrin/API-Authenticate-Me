@@ -60,6 +60,18 @@ router.get('/current', requireAuth, async (req, res) => {
             jsonReview.Spot.previewImage = null
         }
 
+        if (jsonReview.Spot.lat) {
+            jsonReview.Spot.lat = parseFloat(jsonReview.Spot.lat)
+        }
+
+        if (jsonReview.Spot.lng) {
+            jsonReview.Spot.lng = parseFloat(jsonReview.Spot.lng)
+        }
+
+        if (jsonReview.Spot.price) {
+            jsonReview.Spot.price = parseFloat(jsonReview.Spot.price)
+        }
+
         delete jsonReview.Spot.SpotImages
         reviews[i] = jsonReview
     }
@@ -107,7 +119,10 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         url
     })
 
-    res.json(newReviewImage)
+    res.json({
+        id: newReviewImage.id,
+        url: newReviewImage.url
+    })
 })
 
 router.put('/:reviewId', requireAuth, validateReviews, async (req, res) => {
