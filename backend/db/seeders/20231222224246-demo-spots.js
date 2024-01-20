@@ -188,7 +188,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      city: { [Op.in]: ['Los Angeles', 'New York', 'Boston', 'Sacramento', 'North Pole', 'Gangnam-gu'] }
+      city: { [Op.in]: ['Los Angeles', 'New York', 'Boston', 'Sacramento', 'North Pole', 'Gangnam-gu'] } // FIX THIS HERE NEXT TIME
     }, {});
   }
 };
