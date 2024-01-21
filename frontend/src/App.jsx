@@ -32,14 +32,29 @@ const router = createBrowserRouter([
         path: '/',
         element: <h1>Welcome!</h1>
       },
-      // {
-      //   path: 'login',
-      //   element: <LoginFormPage />
-      // },
-      // {
-      //   path: 'signup',
-      //   element: <SignupFormPage />
-      // }
+      {
+        path: '/spots/:spotId'
+      },
+      {
+        path: '/spots/new'
+      },
+      {
+        path: '/spots/current'
+      },
+      {
+        path: '/spots/:spotId/edit'
+      },
+      {
+        path: '/reviews/current'
+      },
+      {
+        path: '/login',
+        element: <LoginFormPage />
+      },
+      {
+        path: '/signup',
+        element: <SignupFormPage />
+      }
     ]
   }
 ]);
