@@ -46,15 +46,15 @@ module.exports = {
     },
     {
       ownerId: 3,
-      address: 'Rainbow Street',
-      city: '	Amherst City',
-      state: 'Amherst',
-      country: 'Maple Island',
+      address: 'Henesys Avenue',
+      city: '	Henesys City',
+      state: 'Henesys',
+      country: 'Victoria Island',
       lat: 38.5816,
       lng: 121.4944,
-      name: 'Beginner Island',
-      description: 'The original starting place where Maplers began their journey.',
-      price: 3.99
+      name: 'Bowman Instructional School',
+      description: 'This is where you decide to become an Explorer Bowman.',
+      price: 33.99
     },
     {
       ownerId: 4,

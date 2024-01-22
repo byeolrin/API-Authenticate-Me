@@ -22,29 +22,34 @@ module.exports = {
    await SpotImage.bulkCreate([
     {
       spotId: 1,
-      url: 'https://imagez.tmz.com/image/87/o/2023/10/16/87c088acc09b4cc3b6a9c2fd287f159e_md.jpg',
+      url: 'https://i.imgur.com/W0cEydI.png',
       preview: true
     },
     {
       spotId: 2,
-      url: 'https://i.ytimg.com/vi/rxEXxfUffN4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDAgZSg-MA8=&rs=AOn4CLBGOpVX0Vrpdmuj_udMSoEJAdWWZw',
+      url: 'https://i.imgur.com/H7D3JXf.png',
       preview: true
     },
     {
       spotId: 3,
-      url: 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-scarlet-violet/2/25/FirstDayofSchoolWalkthrough_%2851%29.png?width=640',
+      url: 'https://i.imgur.com/5jmepuT.png',
       preview: true
     },
     {
       spotId: 4,
-      url: 'https://www.tripsavvy.com/thmb/w-HTNvDBtiVQHMdVVJJGbUXXjiI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TheGettyCenter-839a4dbc76c44c63b9a075d7ce194eb1.jpg',
+      url: 'https://i.imgur.com/CQHqiJy.png',
       preview: true
     },
     {
       spotId: 5,
-      url: 'https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2F5bxwpa0sgsny.jpg',
+      url: 'https://i.imgur.com/vfsK2ss.png',
       preview: true
-    }
+    },
+    {
+      spotId: 6,
+      url: 'https://i.imgur.com/NWl1G4v.png',
+      preview: true
+    },
    ], { validate: true });
   },
 
