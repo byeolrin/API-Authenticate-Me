@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import './LoginForm.css';
+import { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -23,6 +23,8 @@ function LoginFormModal() {
         }
       });
   };
+
+  const inputInvalid = () => credential.length < 4 || password.length < 6;
 
   return (
     <>
@@ -46,8 +48,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+        {errors.message && <p>{errors.message}</p>}
+        <button type="submit" disabled={inputInvalid()}>
+          Log In
+        </button>
       </form>
     </>
   );
