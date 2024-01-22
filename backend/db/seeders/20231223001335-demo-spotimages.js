@@ -22,12 +22,12 @@ module.exports = {
    await SpotImage.bulkCreate([
     {
       spotId: 1,
-      url: 'https://i.imgur.com/W0cEydI.png',
+      url: 'https://i.imgur.com/J4xZ8vK.png',
       preview: true
     },
     {
       spotId: 2,
-      url: 'https://i.imgur.com/H7D3JXf.png',
+      url: 'https://i.imgur.com/HYXMQtD.png',
       preview: true
     },
     {
@@ -48,6 +48,51 @@ module.exports = {
     {
       spotId: 6,
       url: 'https://i.imgur.com/NWl1G4v.png',
+      preview: true
+    },
+    {
+      spotId: 7,
+      url: 'https://i.imgur.com/Mp5riz4.png',
+      preview: true
+    },
+    {
+      spotId: 8,
+      url: 'https://i.imgur.com/L0wOS2s.png',
+      preview: true
+    },
+    {
+      spotId: 9,
+      url: 'https://i.imgur.com/faPeTXh.png',
+      preview: true
+    },
+    {
+      spotId: 10,
+      url: 'https://i.imgur.com/dZqLcNS.png',
+      preview: true
+    },
+    {
+      spotId: 11,
+      url: 'https://i.imgur.com/vnAqOpq.png',
+      preview: true
+    },
+    {
+      spotId: 12,
+      url: 'https://i.imgur.com/EpLKxmc.png',
+      preview: true
+    },
+    {
+      spotId: 13,
+      url: 'https://i.imgur.com/bLYpmwS.png',
+      preview: true
+    },
+    {
+      spotId: 14,
+      url: 'https://i.imgur.com/0K7CtmQ.png',
+      preview: true
+    },
+    {
+      spotId: 15,
+      url: 'https://i.imgur.com/nBx3WLE.png',
       preview: true
     },
    ], { validate: true });

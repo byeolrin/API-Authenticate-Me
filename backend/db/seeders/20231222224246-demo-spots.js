@@ -166,16 +166,40 @@ module.exports = {
     },
     {
       ownerId: 2,
-      address: 'Vulpes Street',
-      city: 'Fox Point Village',
-      state: 'Vulpes' ,
-      country: 'Grandis',
+      address: 'Zipangu Street',
+      city: 'Zipangu City',
+      state: 'Zipangu' ,
+      country: 'World Tour',
       lat: 37.5126,
       lng: 127.0428,
-      name: 'Fox Point Village',
-      description: 'Where you become friends with Moonbeam and become a Shade.',
+      name: 'Mushroom Shrine',
+      description: 'A beautiful place to visit in Maplestory.',
       price: 162.99
-    }
+    },
+    {
+      ownerId: 2,
+      address: 'Main Street',
+      city: 'Lachelein City',
+      state: 'Lachelein' ,
+      country: 'Arcane River',
+      lat: 37.5126,
+      lng: 127.0428,
+      name: 'Lachelein Town',
+      description: 'A beautiful city to visit in Maplestory.',
+      price: 1262.99
+    },
+    {
+      ownerId: 10,
+      address: 'NLC Street',
+      city: 'New Leaf City',
+      state: 'New Leaf' ,
+      country: 'Masteria',
+      lat: 37.5126,
+      lng: 127.0428,
+      name: 'NLC Town Center',
+      description: 'A strange town to visit in Maplestory.',
+      price: 162.99
+    },
    ], { validate: true });
   },
 
