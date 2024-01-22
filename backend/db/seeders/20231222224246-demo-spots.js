@@ -83,7 +83,7 @@ module.exports = {
     {
       ownerId: 6,
       address: 'Ellinia Library',
-      city: '	Ellinia City',
+      city: 'Ellinia City',
       state: 'Ellinia' ,
       country: 'Victoria Island',
       lat: 90.0000,
