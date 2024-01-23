@@ -24,6 +24,19 @@ function LoginFormModal() {
       });
   };
 
+  const handleDemo = (e) => {
+    e.preventDefault();
+    setErrors({});
+    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password'}))
+     .then(closeModal)
+     .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+      }
+     });
+  }
+
   const inputInvalid = () => credential.length < 4 || password.length < 6;
 
   return (
@@ -52,6 +65,7 @@ function LoginFormModal() {
         <button type="submit" disabled={inputInvalid()}>
           Log In
         </button>
+        <button id="demo-user-button" type='submit' onClick={handleDemo}>Demo User</button>
       </form>
     </>
   );
