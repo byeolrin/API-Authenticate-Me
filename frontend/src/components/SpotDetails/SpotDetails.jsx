@@ -28,17 +28,26 @@ function SpotDetails() {
           </p>
         </div>
         <div className="spot-detail-all-images-container">
-                <div className="spot-detail-image-container">
-                    <img className="spot-detail-main-img" src={imageArr[0].url} />
+          <div className="spot-detail-image-container">
+            {imageArr[0] && (
+              <img className="spot-detail-main-img" src={imageArr[0].url} />
+            )}
+          </div>
+          <div className="small-images-container">
+            {imageArr &&
+              imageArr.slice(1).map((image, index) => (
+                <div key={index} className="small-img-grid">
+                  {image && (
+                    <img
+                      className="spot-detail-sm all-image"
+                      src={image.url}
+                      alt={`Spot Image ${index + 1}`}
+                    />
+                  )}
                 </div>
-                <div className="small-images-container">
-                    {imageArr.slice(1).map((image, index) => (
-                        <div key={index} className="small-img-grid">
-                            <img className="spot-detail-small-image" src={image.url} alt={`Spot Image ${index + 1}`} />
-                        </div>
-                    ))}
-                </div>
-            </div>
+              ))}
+          </div>
+        </div>
         <div className="spot-description-container">
           <div className="spot-owner-details">
             Hosted By {spot.Owner.firstName} {spot.Owner.lastName}
