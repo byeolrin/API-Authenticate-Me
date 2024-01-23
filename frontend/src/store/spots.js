@@ -1,8 +1,9 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';
-const SPOT_DETAILS = 'spots/SPOT_DETAILS'
-const CREATE_SPOT = 'spots/CREATE_SPOT'
+const SPOT_DETAILS = 'spots/SPOT_DETAILS';
+const CREATE_SPOT = 'spots/CREATE_SPOT';
+const CREATE_SPOT_IMAGE = 'spots/CREATE_SPOT_IMAGE';
 
 // Action Creators
 export const loadSpots = (spots) => ({
@@ -18,6 +19,11 @@ export const spotDetails = (spot) => ({
 export const createSpot = (spot) => ({
     type: CREATE_SPOT,
     spot
+})
+
+export const createSpotImage = (img) => ({
+    type: CREATE_SPOT_IMAGE,
+    img
 })
 
 // Thunk Creators
@@ -56,6 +62,25 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
         const error = await response.json();
         return error;
     }
+}
+
+export const thunkCreateSpotImage = (spotId, images) => async (dispatch) => {
+    const imgArr = [];
+    for (let image of images) {
+        const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: image, preview: true })
+        })
+        if (response.ok) {
+            const image = await response.json();
+            imgArr.push(image);
+        } else {
+            const error = await response.json();
+            return error;
+        }
+    }
+    return imgArr;
 }
 
 // Reducer

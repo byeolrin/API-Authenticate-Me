@@ -7,7 +7,7 @@ function SpotDetails() {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
   const dispatch = useDispatch();
-  const image = spot?.SpotImages;
+  const imageArr = spot?.SpotImages;
   console.log(spot);
 
   useEffect(() => {
@@ -27,7 +27,18 @@ function SpotDetails() {
             {spot?.city}, {spot?.state}, {spot?.country}
           </p>
         </div>
-        <img id="main-image" src={`${image[0]?.url}`} />
+        <div className="spot-detail-all-images-container">
+                <div className="spot-detail-image-container">
+                    <img className="spot-detail-main-img" src={imageArr[0].url} />
+                </div>
+                <div className="small-images-container">
+                    {imageArr.slice(1).map((image, index) => (
+                        <div key={index} className="small-img-grid">
+                            <img className="spot-detail-small-image" src={image.url} alt={`Spot Image ${index + 1}`} />
+                        </div>
+                    ))}
+                </div>
+            </div>
         <div className="spot-description-container">
           <div className="spot-owner-details">
             Hosted By {spot.Owner.firstName} {spot.Owner.lastName}
