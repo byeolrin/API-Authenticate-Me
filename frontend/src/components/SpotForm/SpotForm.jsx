@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const SpotForm = ({ spot }) => {
+const SpotForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
