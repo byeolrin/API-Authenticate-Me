@@ -28,13 +28,13 @@ module.exports = {
     },
     {
       spotId: 2,
-      userId: 2,
+      userId: 1,
       review: 'This place brings back a lot of nostalgic memories.',
       stars: 4,
     },
     {
       spotId: 5,
-      userId: 4,
+      userId: 1,
       review: 'This place is so much fun. You can practically do anything you want here!',
       stars: 5,
     }
