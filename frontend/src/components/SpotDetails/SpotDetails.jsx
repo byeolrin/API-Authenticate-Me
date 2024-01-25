@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkSpotDetails } from "../../store/spots";
+import { thunkLoadReviews } from "../../store/review";
+import SpotReviews from "../SpotReviews/SpotReviews";
 
 function SpotDetails() {
   const { spotId } = useParams();
@@ -13,6 +15,10 @@ function SpotDetails() {
   useEffect(() => {
     dispatch(thunkSpotDetails(spotId));
   }, [dispatch, spotId]);
+
+  useEffect(() => {
+    dispatch(thunkLoadReviews());
+  }, [dispatch])
 
   if (!spot || !spot.SpotImages) return null;
 
@@ -41,7 +47,7 @@ function SpotDetails() {
                     <img
                       className="spot-detail-sm all-image"
                       src={image.url}
-                      alt={`Spot Image ${index + 1}`}
+                      // alt={`Spot Image ${index + 1}`}
                     />
                   )}
                 </div>
@@ -65,6 +71,9 @@ function SpotDetails() {
             {spot.numReviews > 0 ? spot.numReviews : 0} reviews
           </div>
         </div>
+      </div>
+      <div className="review-details">
+        <SpotReviews />
       </div>
     </>
   );

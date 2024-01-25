@@ -1,33 +1,34 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { thunkCreateSpot, thunkCreateSpotImage } from "../../store/spots";
-import { useNavigate } from "react-router-dom";
-import "./SpotForm.css";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkUpdateSpot, thunkUpdateSpotImage } from "../../store/spots";
+import { useNavigate, useParams } from "react-router-dom";
 
-const SpotForm = () => {
+const EditForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [price, setPrice] = useState(1);
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
-  const [description, setDescription] = useState("");
-  const [mainImage, setMainImage] = useState("");
-  const [img1, setImg1] = useState("");
-  const [img2, setImg2] = useState("");
-  const [img3, setImg3] = useState("");
-  const [img4, setImg4] = useState("");
+  const { spotId } = useParams();
+  const spot = useSelector((state => state.spots[spotId]));
+  const [name, setName] = useState(spot?.name);
+  const [address, setAddress] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [state, setState] = useState(spot?.state);
+  const [country, setCountry] = useState(spot?.country);
+  const [price, setPrice] = useState(spot?.price);
+  const [lat, setLat] = useState(spot?.lat);
+  const [lng, setLng] = useState(spot?.lng);
+  const [description, setDescription] = useState(spot?.description);
+  const [mainImage, setMainImage] = useState(spot?.mainImage);
+  const [img1, setImg1] = useState(spot?.img1);
+  const [img2, setImg2] = useState(spot?.img2);
+  const [img3, setImg3] = useState(spot?.img3);
+  const [img4, setImg4] = useState(spot?.img4);
   const [validationErrors, setValidationErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const errors = {};
 
-    if (!name.length) {
+    if (!name || !name.length) {
       errors.name = "Name is required";
     }
 
@@ -51,7 +52,7 @@ const SpotForm = () => {
       errors.price = "Price is required and needs to be greater than 0";
     }
 
-    if (!mainImage.match(/\.(jpg|jpeg|png)$/)) {
+    if (!mainImage || !mainImage.match(/\.(jpg|jpeg|png)$/)) {
       errors.mainImage = "Image URL must end in .png, .jpg, or .jpeg"
     }
 
@@ -71,7 +72,7 @@ const SpotForm = () => {
       errors.img4 = "Image URL must end in .png, .jpg, or .jpeg"
     }
 
-    if (description.length < 30) {
+    if (!description || description.length < 30) {
       errors.description = "Description needs a minimum of 30 characters";
     }
 
@@ -96,8 +97,8 @@ const SpotForm = () => {
     setSubmitted(true);
     console.log(Object.keys(validationErrors));
     if (!Object.keys(validationErrors).length) {
-      const newSpot = await dispatch(
-        thunkCreateSpot({
+      const updateSpot = await dispatch(
+        thunkUpdateSpot({
           address,
           city,
           state,
@@ -107,22 +108,22 @@ const SpotForm = () => {
           name,
           description,
           price,
-        })
+        }, spotId)
       ).catch(async (res) => {
         const data = await res.json();
         if (data.errors) {
           setValidationErrors(data.errors);
         }
       });
-      const imgArr = [mainImage, img1, img2, img3, img4]
-      await dispatch(thunkCreateSpotImage(newSpot.id, imgArr));
-      navigate(`/spots/${newSpot.id}`);
+    //   const imgArr = [mainImage, img1, img2, img3, img4]
+    //   await dispatch(thunkUpdateSpotImage(updateSpot.id, imgArr));
+      navigate(`/spots/${updateSpot.id}`);
     }
   };
 
   return (
     <form className="spot-form" onSubmit={onSubmit}>
-      <h2>Create a new Spot</h2>
+      <h2>Update a Spot</h2>
       <label>
         Country
         <input
@@ -222,7 +223,7 @@ const SpotForm = () => {
       </label>
       <br />
       <label>
-        Price $
+        Price
         <input
           type="text"
           name="price"
@@ -292,9 +293,9 @@ const SpotForm = () => {
         </div>
       </label>
       <br />
-      <button type="submit">Create Spot</button>
+      <button type="submit">Update Spot</button>
     </form>
   );
 };
 
-export default SpotForm;
+export default EditForm;

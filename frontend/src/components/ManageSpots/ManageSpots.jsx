@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLoadSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteSpot from "../DeleteSpot/DeleteSpot";
 
 const ManageSpots = () => {
     const sessionUser = useSelector(state => state.session.user);
@@ -30,6 +32,14 @@ const ManageSpots = () => {
                       <div className="country">{spot.country}</div>
                       <div className="price"><b>${spot.price}</b> night</div>
                   </div>
+                  <button>
+                    <NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink>
+                  </button>
+                  <OpenModalButton
+                  buttonText='Delete'
+                  className='delete-button-modal'
+                  modalComponent={<DeleteSpot spot={spot}/>}
+                  />
               </NavLink>
             ))}
         </div>

@@ -3,7 +3,10 @@ import { csrfFetch } from "./csrf";
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const SPOT_DETAILS = 'spots/SPOT_DETAILS';
 const CREATE_SPOT = 'spots/CREATE_SPOT';
+const UPDATE_SPOT = 'spots/UPDATE_SPOT';
 const CREATE_SPOT_IMAGE = 'spots/CREATE_SPOT_IMAGE';
+const UPDATE_SPOT_IMAGE = 'spots/UPDATE_SPOT_IMAGE';
+const DELETE_SPOT = 'spots/DELETE_SPOT';
 
 // Action Creators
 export const loadSpots = (spots) => ({
@@ -21,9 +24,24 @@ export const createSpot = (spot) => ({
     spot
 })
 
+export const updateSpot = (spot) => ({
+    type: UPDATE_SPOT,
+    spot
+})
+
 export const createSpotImage = (img) => ({
     type: CREATE_SPOT_IMAGE,
     img
+})
+
+export const updateSpotImage = (img) => ({
+    type: UPDATE_SPOT_IMAGE,
+    img
+})
+
+export const deleteSpot = (spotId) => ({
+    type: DELETE_SPOT,
+    spotId
 })
 
 // Thunk Creators
@@ -64,6 +82,23 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
     }
 }
 
+export const thunkUpdateSpot = (updatedSpot, spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedSpot)
+    })
+
+    if (response.ok) {
+        const editedSpot = await response.json();
+        dispatch(updateSpot(editedSpot));
+        return editedSpot;
+    } else {
+        const error = await response.json();
+        return error;
+    }
+}
+
 export const thunkCreateSpotImage = (spotId, images) => async () => {
     const imgArr = [];
     for (let image of images) {
@@ -83,6 +118,33 @@ export const thunkCreateSpotImage = (spotId, images) => async () => {
     return imgArr;
 }
 
+export const thunkUpdateSpotImage = (spotId, images) => async () => {
+    const updateImgArr = [];
+    for (let image of images) {
+        const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: image, preview: true })
+        })
+        if (response.ok) {
+            const updateImage = await response.json();
+            updateImgArr.push(updateImage);
+        } else {
+            const error = await response.json();
+            return error;
+        }
+    }
+}
+
+export const thunkDeleteSpot = (spot) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        dispatch(deleteSpot(spot.id));
+    }
+}
+
 // Reducer
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
@@ -97,6 +159,13 @@ const spotsReducer = (state = {}, action) => {
             return { ...state, [action.spot.id]: action.spot };
         case CREATE_SPOT: 
             return { ...state, [action.spot.id]: action.spot };
+        case UPDATE_SPOT:
+            return { ...state, [action.spot.id]: action.spot };
+        case DELETE_SPOT: {
+            const newState = { ...state };
+            delete newState[action.spotId]
+            return newState;
+        }
         default:
             return state;
     }
