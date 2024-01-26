@@ -5,3 +5,42 @@
 .hidden {
   display: none;
 }
+
+.nav-bar-create-a-spot{
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.manage-spot-button {
+  text-decoration: none;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  background-color: transparent;  
+}
+
+.manage-spot-button:hover {
+  text-decoration: none;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  background-color: transparent;  
+}
+
+.FrontPageLogo {
+  height: 5%;
+  width: 5%;
+}

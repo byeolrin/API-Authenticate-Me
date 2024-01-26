@@ -4,13 +4,17 @@ import { useParams } from "react-router-dom";
 import { thunkSpotDetails } from "../../store/spots";
 import { thunkLoadReviews } from "../../store/review";
 import SpotReviews from "../SpotReviews/SpotReviews";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 function SpotDetails() {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
   const dispatch = useDispatch();
   const imageArr = spot?.SpotImages;
-  console.log(spot);
+  const sessionUser = useSelector((state) => state.session.user);
+  console.log("this is your sessionUSER from SPOTDETAILS:", sessionUser);
+  console.log("this is your CURRENT spot:", spot);
 
   useEffect(() => {
     dispatch(thunkSpotDetails(spotId));
@@ -18,9 +22,11 @@ function SpotDetails() {
 
   useEffect(() => {
     dispatch(thunkLoadReviews());
-  }, [dispatch])
+  }, [dispatch]);
 
   if (!spot || !spot.SpotImages) return null;
+
+  const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
 
   return (
     <>
@@ -68,9 +74,33 @@ function SpotDetails() {
             ★ {spot.avgStarRating > 0 ? spot.avgStarRating : "New"}
           </div>
           <div className="num-of-reviews">
-            {spot.numReviews > 0 ? spot.numReviews : 0} reviews
+          {spot.numReviews > 0 && (
+    <>
+      {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
+    </>
+  )}
           </div>
         </div>
+        <br />
+      </div>
+      <div className="star-rating-for-reviews">
+        ★ {spot.avgStarRating > 0 ? spot.avgStarRating : "New"}
+      </div>
+      <div className="num-of-reviews-for-reviews">
+      {spot.numReviews > 0 && (
+    <>
+      {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
+    </>
+  )}
+      </div>
+      <div className="post-review-button">
+        {!sessionUserIsOwner && (
+          <OpenModalButton
+            buttonText="Post Your Review"
+            className="post-your-review-button"
+            modalComponent={<ReviewForm spotId={spotId} />}
+          />
+        )}
       </div>
       <div className="review-details">
         <SpotReviews />

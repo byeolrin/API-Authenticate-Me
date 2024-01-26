@@ -2,7 +2,6 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS';
 const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
-const EDIT_REVIEW = 'reviews/EDIT_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW'
 
 // Action Creators
@@ -16,14 +15,9 @@ export const createReview = (review) => ({
     review
 })
 
-export const editReview = (review) => ({
-    type: EDIT_REVIEW,
-    review
-})
-
-export const deleteReview = (review) => ({
+export const deleteReview = (reviewId) => ({
     type: DELETE_REVIEW,
-    review
+    reviewId
 })
 
 // Thunk Creators
@@ -37,9 +31,32 @@ export const thunkLoadReviews = (spotId) => async (dispatch) => {
     }
 }
 
-// export const thunkReviewDetails = (spotId, reviewId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/spots/${spotId/}`)
-// }
+export const thunkCreateReview = (spotId, review) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review)
+    })
+
+    if (response.ok) {
+        const review = await response.json();
+        dispatch(createReview(review));
+        return review;
+    } else {
+        const error = await response.json();
+        return error;
+    }
+}
+
+export const thunkDeleteReview = (reviewId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(deleteReview(reviewId));
+    }
+}
 
 const reviewsReducer = (state = {}, action) => {
     switch (action.type) {
@@ -50,7 +67,13 @@ const reviewsReducer = (state = {}, action) => {
             })
             return allReviews;
         }
-
+        case DELETE_REVIEW : {
+            const newState = { ...state }
+            delete newState[action.reviewId]
+            return newState;
+        }
+        case CREATE_REVIEW: 
+            return { ...state, [action.review.id]: action.review };
         default:
             return state;
     }

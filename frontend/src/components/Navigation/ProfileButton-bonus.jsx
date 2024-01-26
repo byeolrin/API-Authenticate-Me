@@ -4,7 +4,7 @@ import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const navigate = useNavigate();
@@ -41,8 +41,7 @@ function ProfileButton({ user }) {
     navigate("/");
   };
 
-  const manageSpot = (e) => {
-    e.preventDefault();
+  const manageSpot = () => {
     closeMenu();
   };
 
@@ -56,16 +55,14 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
+            <li>Hello, {user.username}</li>
             <li>
-              {user.firstName} {user.lastName}
+              {/* {user.firstName} {user.lastName} */}
             </li>
             <li>{user.email}</li>
             {sessionUser && (
               <li>
-                <button onClick={manageSpot}>
-                  <NavLink to="/spots/current">Manage Spots</NavLink>
-                </button>
+                  <Link to="/spots/current" className="manage-spot-button" onClick={manageSpot}>Manage Spots</Link>
               </li>
             )}
             <li>

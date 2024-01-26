@@ -52,25 +52,25 @@ const EditForm = () => {
       errors.price = "Price is required and needs to be greater than 0";
     }
 
-    if (!mainImage || !mainImage.match(/\.(jpg|jpeg|png)$/)) {
-      errors.mainImage = "Image URL must end in .png, .jpg, or .jpeg"
-    }
+    // if (!mainImage || !mainImage.match(/\.(jpg|jpeg|png)$/)) {
+    //   errors.mainImage = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
 
-    if (img1 && !img1.match(/\.(jpg|jpeg|png)$/)) {
-      errors.img1 = "Image URL must end in .png, .jpg, or .jpeg"
-    }
+    // if (img1 && !img1.match(/\.(jpg|jpeg|png)$/)) {
+    //   errors.img1 = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
 
-    if (img2 && !img2.match(/\.(jpg|jpeg|png)$/)) {
-      errors.img2 = "Image URL must end in .png, .jpg, or .jpeg"
-    }
+    // if (img2 && !img2.match(/\.(jpg|jpeg|png)$/)) {
+    //   errors.img2 = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
 
-    if (img3 && !img3.match(/\.(jpg|jpeg|png)$/)) {
-      errors.img3 = "Image URL must end in .png, .jpg, or .jpeg"
-    }
+    // if (img3 && !img3.match(/\.(jpg|jpeg|png)$/)) {
+    //   errors.img3 = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
 
-    if (img4 && !img4.match(/\.(jpg|jpeg|png)$/)) {
-      errors.img4 = "Image URL must end in .png, .jpg, or .jpeg"
-    }
+    // if (img4 && !img4.match(/\.(jpg|jpeg|png)$/)) {
+    //   errors.img4 = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
 
     if (!description || description.length < 30) {
       errors.description = "Description needs a minimum of 30 characters";
