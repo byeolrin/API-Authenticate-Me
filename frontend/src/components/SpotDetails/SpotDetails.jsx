@@ -10,7 +10,7 @@ import ReviewForm from "../ReviewForm/ReviewForm";
 function SpotDetails() {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
-  const reviews = useSelector((state => state.reviews))
+  const reviews = useSelector((state) => state.reviews);
   const dispatch = useDispatch();
   const imageArr = spot?.SpotImages;
   const sessionUser = useSelector((state) => state.session.user);
@@ -25,12 +25,15 @@ function SpotDetails() {
     dispatch(thunkLoadReviews(spotId));
   }, [dispatch, spotId]);
 
-  if (!spot || !spot.SpotImages) return null;
+  if (!spot || !spot.SpotImages || !sessionUser) return null;
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
-  
-  const userHasReview = Object.values(reviews).find(review => review.userId === sessionUser?.id && review.spotId === parseInt(spotId));
-  console.log('this is the userReview in the SpotDetails', userHasReview);
+
+  const userHasReview = Object.values(reviews).find(
+    (review) =>
+      review.userId === sessionUser?.id && review.spotId === parseInt(spotId)
+  );
+  console.log("this is the userReview in the SpotDetails", userHasReview);
 
   return (
     <>
@@ -75,30 +78,27 @@ function SpotDetails() {
         <div className="reserve-container">
           <div className="cost-per-night">${spot.price} night</div>
           <div className="star-rating">
-            ★ {spot.avgStarRating > 0 ? spot.avgStarRating : "New"}
+            ★ {spot.avgStarRating > 0 ? spot.avgStarRating.toFixed(1) : "New"}
           </div>
           <div className="num-of-reviews">
-          {spot.numReviews > 0 && (
-    <>
-      {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
-    </>
-  )}
+            {spot.numReviews > 0 && (
+              <>
+                {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
+              </>
+            )}
           </div>
         </div>
         <br />
       </div>
-      <div className="star-rating-for-reviews">
-        ★ {spot.avgStarRating > 0 ? spot.avgStarRating : "New"}
-      </div>
-      <div className="num-of-reviews-for-reviews">
-      {spot.numReviews > 0 && (
-    <>
-      {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
-    </>
-  )}
+      <div className="star-rating-and-num-of-reviews-for-reviews">
+        ★ {spot.avgStarRating > 0 ? spot.avgStarRating.toFixed(1) : "New"} · {spot.numReviews > 0 && (
+          <>
+            {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
+          </>
+        )}
       </div>
       <div className="post-review-button">
-        {(sessionUser && !sessionUserIsOwner && !userHasReview) && (
+        {sessionUser && !sessionUserIsOwner && !userHasReview && (
           <OpenModalButton
             buttonText="Post Your Review"
             className="post-your-review-button"

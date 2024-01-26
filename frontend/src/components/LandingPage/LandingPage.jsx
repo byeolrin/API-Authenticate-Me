@@ -23,7 +23,7 @@ function LandingPage() {
                       <img id="spot-img" src={`${spot.previewImage}`} />
                       <div className="name-review">
                           <div className="name"><b>{spot.name}</b></div>
-                          <div className="review"><b>★ {spot.avgRating > 0 ? spot.avgRating : 'New'}</b></div>
+                          <div className="review"><b>★ {spot.avgRating > 0 ? spot.avgRating.toFixed(1) : 'New'}</b></div>
                       </div>
                       <div className="city">{spot.city}, {spot.state}</div>
                       <div className="country">{spot.country}</div>
