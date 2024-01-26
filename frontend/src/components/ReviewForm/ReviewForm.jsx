@@ -10,14 +10,14 @@ const ReviewForm = ({ spotId }) => {
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(null);
   const [hover, setHover] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [validationErrors, setValidationErrors] = useState({});
+  // const [submitted, setSubmitted] = useState(false);
+  // const [validationErrors, setValidationErrors] = useState({});
   const { closeModal } = useModal();
   // console.log('this is the spotId of Review form before submitting:', spotId)
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    // setSubmitted(true);
     // console.log('this is the spotId of Review form after submitting:', spotId)
     const newReview = {
       review,
