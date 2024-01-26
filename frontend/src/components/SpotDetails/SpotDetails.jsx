@@ -27,7 +27,7 @@ function SpotDetails() {
   //   dispatch(thunkLoadReviews(spotId));
   // }, [dispatch, spotId]);
 
-  if (!spot || !spot.SpotImages) return null;
+  if (!sessionUser || !spot || !spot.SpotImages) return null;
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
 
