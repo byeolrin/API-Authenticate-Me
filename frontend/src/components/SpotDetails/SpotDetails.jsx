@@ -10,10 +10,11 @@ import ReviewForm from "../ReviewForm/ReviewForm";
 function SpotDetails() {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
+  const reviews = useSelector((state => state.reviews))
   const dispatch = useDispatch();
   const imageArr = spot?.SpotImages;
   const sessionUser = useSelector((state) => state.session.user);
-  console.log("this is your sessionUSER from SPOTDETAILS:", sessionUser);
+  // console.log("this is your sessionUSER from SPOTDETAILS:", sessionUser);
   console.log("this is your CURRENT spot:", spot);
 
   useEffect(() => {
@@ -21,12 +22,15 @@ function SpotDetails() {
   }, [dispatch, spotId]);
 
   useEffect(() => {
-    dispatch(thunkLoadReviews());
-  }, [dispatch]);
+    dispatch(thunkLoadReviews(spotId));
+  }, [dispatch, spotId]);
 
   if (!spot || !spot.SpotImages) return null;
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
+  
+  const userHasReview = Object.values(reviews).find(review => review.userId === sessionUser.id && review.spotId === parseInt(spotId));
+  console.log('this is the userReview in the SpotDetails', userHasReview);
 
   return (
     <>
@@ -94,7 +98,7 @@ function SpotDetails() {
   )}
       </div>
       <div className="post-review-button">
-        {!sessionUserIsOwner && (
+        {(sessionUser && !sessionUserIsOwner && !userHasReview) && (
           <OpenModalButton
             buttonText="Post Your Review"
             className="post-your-review-button"
