@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkUpdateSpot, thunkUpdateSpotImage } from "../../store/spots";
+import { thunkUpdateSpot } from "../../store/spots";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditForm = () => {
