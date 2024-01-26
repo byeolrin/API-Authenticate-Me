@@ -15,19 +15,19 @@ function SpotDetails() {
   const dispatch = useDispatch();
   const imageArr = spot?.SpotImages;
   const sessionUser = useSelector((state) => state.session.user);
-  // console.log("this is your sessionUSER from SPOTDETAILS:", sessionUser);
+  console.log("this is your sessionUSER from SPOTDETAILS:", sessionUser);
   console.log("this is your CURRENT spot:", spot);
 
   useEffect(() => {
     dispatch(thunkSpotDetails(spotId));
     dispatch(thunkLoadReviews(spotId));
-  }, [dispatch, spotId, reviewsArr.length]);
+  }, [dispatch, spotId, reviewsArr.length, sessionUser]);
 
   // useEffect(() => {
   //   dispatch(thunkLoadReviews(spotId));
   // }, [dispatch, spotId]);
 
-  if (!spot || !spot.SpotImages || !sessionUser) return null;
+  if (!spot || !spot.SpotImages) return null;
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
 
