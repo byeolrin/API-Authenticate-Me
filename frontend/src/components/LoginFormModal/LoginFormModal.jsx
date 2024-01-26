@@ -27,45 +27,55 @@ function LoginFormModal() {
   const handleDemo = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password'}))
-     .then(closeModal)
-     .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) {
-        setErrors(data.errors);
-      }
-     });
-  }
+    return dispatch(
+      sessionActions.login({ credential: "demo@user.io", password: "password" })
+    )
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+  };
 
   const inputInvalid = () => credential.length < 4 || password.length < 6;
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+      <h1 className="login-header">Log In</h1>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="validation-errors">
+          {errors.message && <p>{errors.message}</p>}
+        </div>
+        <label className="login-field">
+          <p>Username or Email</p>
           <input
             type="text"
+            className="login-input"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
-        <label>
-          Password
+        <label className="login-field">
+          <p>Password</p>
           <input
             type="password"
+            className="login-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.message && <p>{errors.message}</p>}
-        <button type="submit" disabled={inputInvalid()}>
+        <br />
+        <button className='login-button' type="submit" disabled={inputInvalid()}>
           Log In
         </button>
-        <button id="demo-user-button" type='submit' onClick={handleDemo}>Demo User</button>
+        <br />
+        <button id="demo-user-button" type="submit" onClick={handleDemo}>
+          Demo User
+        </button>
       </form>
     </>
   );

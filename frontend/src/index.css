@@ -31,3 +31,7 @@ input::-webkit-inner-spin-button {
   text-decoration: none;
   background-color: #FAF9F6;
 }
+
+.validation-errors {
+  color: red;
+}
