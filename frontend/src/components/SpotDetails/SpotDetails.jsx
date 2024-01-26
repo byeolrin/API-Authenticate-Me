@@ -29,7 +29,7 @@ function SpotDetails() {
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
   
-  const userHasReview = Object.values(reviews).find(review => review.userId === sessionUser.id && review.spotId === parseInt(spotId));
+  const userHasReview = Object.values(reviews).find(review => review.userId === sessionUser?.id && review.spotId === parseInt(spotId));
   console.log('this is the userReview in the SpotDetails', userHasReview);
 
   return (
