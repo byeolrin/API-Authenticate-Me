@@ -17,8 +17,8 @@ const DeleteReview = ({ reviewId }) => {
             <h1>Confirm Delete</h1>
             <div className="delete-button-container">
                 <p>Are you sure you want to remove this review?</p>
-                <button id='confirm-delete'className='delete-buttons' onClick={deleteHandler}>Yes (Delete Spot)</button>
-                <button id='no-delete' className="delete-buttons" onClick={closeModal}>No (Keep Spot)</button>
+                <button id='confirm-delete'className='delete-buttons' onClick={deleteHandler}>Yes (Delete Review)</button>
+                <button id='no-delete' className="delete-buttons" onClick={closeModal}>No (Keep Review)</button>
             </div>
         </div>
     )

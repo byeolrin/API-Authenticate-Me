@@ -21,13 +21,14 @@ function SpotDetails() {
   useEffect(() => {
     dispatch(thunkSpotDetails(spotId));
     dispatch(thunkLoadReviews(spotId));
-  }, [dispatch, spotId, reviewsArr.length, sessionUser]);
+  }, [dispatch, spotId, reviewsArr.length]);
 
-  // useEffect(() => {
-  //   dispatch(thunkLoadReviews(spotId));
-  // }, [dispatch, spotId]);
+  const handleReserve = (e) => {
+    e.preventDefault()
+    alert('Feature coming soon')
+}
 
-  if (!sessionUser || !spot || !spot.SpotImages) return null;
+  if (!spot || !spot.SpotImages) return null;
 
   const sessionUserIsOwner = sessionUser?.id === spot.Owner.id;
 
@@ -89,6 +90,9 @@ function SpotDetails() {
               </>
             )}
           </div>
+          <button className="reserve-button" onClick={handleReserve}>
+            Reserve
+          </button>
         </div>
         <br />
       </div>
