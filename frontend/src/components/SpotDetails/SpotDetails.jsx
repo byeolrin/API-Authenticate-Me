@@ -11,6 +11,7 @@ function SpotDetails() {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
   const reviews = useSelector((state) => state.reviews);
+  const reviewsArr = Object.values(reviews);
   const dispatch = useDispatch();
   const imageArr = spot?.SpotImages;
   const sessionUser = useSelector((state) => state.session.user);
@@ -19,11 +20,12 @@ function SpotDetails() {
 
   useEffect(() => {
     dispatch(thunkSpotDetails(spotId));
-  }, [dispatch, spotId]);
-
-  useEffect(() => {
     dispatch(thunkLoadReviews(spotId));
-  }, [dispatch, spotId]);
+  }, [dispatch, spotId, reviewsArr.length]);
+
+  // useEffect(() => {
+  //   dispatch(thunkLoadReviews(spotId));
+  // }, [dispatch, spotId]);
 
   if (!spot || !spot.SpotImages || !sessionUser) return null;
 
@@ -91,7 +93,7 @@ function SpotDetails() {
         <br />
       </div>
       <div className="star-rating-and-num-of-reviews-for-reviews">
-        ★ {spot.avgStarRating > 0 ? spot.avgStarRating.toFixed(1) : "New"} · {spot.numReviews > 0 && (
+        ★ {spot.avgStarRating > 0 ? `${spot.avgStarRating.toFixed(1)} ·` : "New"} {spot.numReviews > 0 && (
           <>
             {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
           </>

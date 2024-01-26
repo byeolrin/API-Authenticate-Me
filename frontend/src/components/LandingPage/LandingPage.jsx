@@ -17,7 +17,7 @@ function LandingPage() {
         <>
         <div className="spots-main">
             {spots.map((spot) => (
-                  <NavLink to={`/spots/${spot.id}`}
+                  <NavLink className='new-spot-container' to={`/spots/${spot.id}`}
                   key={spot.id}>
                   <div className="new-spot">
                       <img id="spot-img" src={`${spot.previewImage}`} />

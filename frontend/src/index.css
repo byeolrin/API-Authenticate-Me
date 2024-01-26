@@ -1,8 +1,22 @@
 /* TODO: Add sitewide styles */
+@media (min-width: 2099px) {
+  .spots-main {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.new-spot-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 25%;
+}
+}
+
 textarea {
-    resize: none;
-    height: 150px;
-    width: 300px;
+  resize: none;
+  height: 150px;
+  width: 300px;
 }
 
 /* Works for Chrome, Safari, Edge, Opera */
@@ -12,11 +26,8 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-body {
+* {
   font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  background-color: #FAF9F6;
 }
-
-/* Works for Firefox */
-/* input[type="number"] {
-  -moz-appearance: textfield;
-} */

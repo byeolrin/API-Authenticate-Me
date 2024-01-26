@@ -8,9 +8,22 @@
     /* border: solid black 1px; */
     padding: 10px;
     width: 400px;
+    margin: 20px;
 }
 
 .spots-main {
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    width: fit-content;
+}
+
+.new-spot-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: fit-content;
+}
+
+.new-spot-container:hover {
+
 }

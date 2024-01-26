@@ -1,14 +1,17 @@
 .profile-dropdown {
-  position: absolute;
+  position: relative;
+  background-color: lightgray;
 }
 
 .hidden {
   display: none;
 }
 
-.nav-bar-create-a-spot{
-  text-decoration: none;
+.logout-button-list-space {
+  display: flex;
+  justify-content: center;
 }
+
 
 ul {
   list-style-type: none;
@@ -29,17 +32,39 @@ ul {
 }
 
 .FrontPageLogo {
-  height: 5%;
-  width: 5%;
+  height: 51px;
+  width: 68px;
+  padding: 10px;
 }
 
 .right-side-of-nav-bar {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: black 1px solid;
+}
+
+.left-side-of-nav-bar {
+  display: flex;
   align-items: center;
 }
 
-/* .nav-bar-container {
+.left-side-of-nav-bar > a {
   display: flex;
-  align-items: center;
-} */
+}
+
+.logo-title {
+  color: lightsalmon;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.profile-menu {
+  cursor: pointer;
+}

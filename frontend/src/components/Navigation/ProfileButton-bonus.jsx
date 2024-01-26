@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className='profile-menu' onClick={toggleMenu}>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -65,7 +65,7 @@ function ProfileButton({ user }) {
                   <Link to="/spots/current" className="manage-spot-button" onClick={manageSpot}>Manage Spots</Link>
               </li>
             )}
-            <li>
+            <li className='logout-button-list-space'>
               <button onClick={logout}>Log Out</button>
             </li>
           </>
