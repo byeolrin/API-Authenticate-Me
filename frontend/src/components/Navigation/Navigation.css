@@ -68,3 +68,7 @@ ul {
 .profile-menu {
   cursor: pointer;
 }
+
+#profile-logout-drop-down > li {
+  cursor: pointer;
+}

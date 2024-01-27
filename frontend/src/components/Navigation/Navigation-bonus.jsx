@@ -12,7 +12,9 @@ function Navigation({ isLoaded }) {
       <div className="left-side-of-nav-bar">
         <NavLink to="/">
           <img className="FrontPageLogo" src={MapleStoryLogo} />
-          <p className="logo-title">MapleBnb</p>
+        </NavLink>
+        <NavLink to="/">
+          <p className="logo-title">MapleBnB</p>
         </NavLink>
       </div>
       <div className="right-side-of-nav-bar">

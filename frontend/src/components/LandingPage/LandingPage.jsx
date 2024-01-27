@@ -19,14 +19,16 @@ function LandingPage() {
             {spots.map((spot) => (
                   <NavLink className='new-spot-container' to={`/spots/${spot.id}`}
                   key={spot.id}>
-                  <div className="new-spot">
+                  <div className="new-spot" title={spot.name}>
                       <img id="spot-img" src={`${spot.previewImage}`} />
                       <div className="name-review">
-                          <div className="name"><b>{spot.name}</b></div>
-                          <div className="review"><b>★ {spot.avgRating > 0 ? spot.avgRating.toFixed(1) : 'New'}</b></div>
+                          {/* <div className="name"><b>{spot.name}</b></div> */}
                       </div>
-                      <div className="city">{spot.city}, {spot.state}</div>
-                      <div className="country">{spot.country}</div>
+                      <div className="review-location">
+                          <div className="review"><b>★ {spot.avgRating > 0 ? spot.avgRating.toFixed(1) : 'New'}</b></div>
+                      <div className="location">{spot.city}, {spot.state}</div> 
+                      {/* <div className="country">{spot.country}</div> */}
+                      </div>
                       <div className="price"><b>${spot.price}</b> night</div>
                   </div>
               </NavLink>
