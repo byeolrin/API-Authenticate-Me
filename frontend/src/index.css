@@ -29,9 +29,12 @@ input::-webkit-inner-spin-button {
 * {
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
-  background-color: #FAF9F6;
 }
 
 .validation-errors {
   color: red;
+}
+
+body {
+  background-color: #FAF9F6;
 }

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignupForm.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function SignupFormModal() {
           username,
           firstName,
           lastName,
-          password
+          password,
         })
       )
         .then(closeModal)
@@ -37,75 +37,108 @@ function SignupFormModal() {
         });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
 
+  const inputInvalid = () =>
+    username.length < 4 ||
+    password.length < 6 ||
+    !firstName ||
+    !lastName ||
+    !email ||
+    !confirmPassword;
+
   return (
     <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <h1 className="signup-header">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="signup-form">
+        <label className="signup-field">
           Email
           <input
             type="text"
+            className="signup-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+        <div className="validation-errors">
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+        <label className="signup-field">
           Username
           <input
             type="text"
+            className="signup-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        <div className="validation-errors">
+          {errors.username && <p>{errors.username}</p>}
+        </div>
+        <label className="signup-field">
           First Name
           <input
             type="text"
+            className="signup-input"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
+        <div className="validation-errors">
+          {errors.firstName && <p>{errors.firstName}</p>}
+        </div>
+        <label className="signup-field">
           Last Name
           <input
             type="text"
+            className="signup-input"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
+        <div className="validation-errors">
+          {errors.lastName && <p>{errors.lastName}</p>}
+        </div>
+        <label className="signup-field">
           Password
           <input
             type="password"
+            className="signup-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
+        <div className="validation-errors">
+          {errors.password && <p>{errors.password}</p>}
+        </div>
+        <label className="signup-field">
           Confirm Password
           <input
             type="password"
+            className="signup-input"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <div className="validation-errors">
+          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        </div>
+        <button
+          className="signup-button"
+          type="submit"
+          disabled={inputInvalid()}
+        >
+          Sign Up
+        </button>
       </form>
     </>
   );

@@ -53,8 +53,8 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
+        {user ? ( 
+          <div id="profile-login-drop-down">
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
             {sessionUser && (
@@ -63,9 +63,9 @@ function ProfileButton({ user }) {
               </li>
             )}
             <li className='logout-button-list-space'>
-              <button onClick={logout}>Log Out</button>
+              <button className='logout-button' onClick={logout}>Log Out</button>
             </li>
-          </>
+          </div>
         ) : (
           <div id="profile-logout-drop-down">
             <OpenModalMenuItem

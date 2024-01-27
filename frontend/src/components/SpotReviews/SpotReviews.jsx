@@ -19,6 +19,10 @@ function SpotReviews() {
     dispatch(thunkLoadReviews(spotId));
   }, [dispatch, spotId]);
 
+  if (!reviews.length) {
+    return <p>Be the first to post a review!</p>
+  }
+
   function month(date) {
     const createdReviewDate = new Date(date);
     const month = createdReviewDate.getMonth();

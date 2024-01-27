@@ -1,0 +1,30 @@
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.signup-field {
+    /* margin-bottom: 5px; */
+    font-weight: bold;
+}
+
+.signup-input {
+    display: block;
+    width: 97%;
+    border-radius: 5px;
+    background-color: #FAF9F6;
+    margin: 5px;
+}
+
+.signup-header {
+    margin-bottom: -30px;
+    margin-top: -10px;
+}
+
+.signup-button {
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgb(250, 219, 206);
+    margin-top: 5px;
+}   

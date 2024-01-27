@@ -1,0 +1,72 @@
+.spot-details {
+    padding: 0px 50px;
+}
+
+.spot-detail-all-img-container {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+
+.spot-detail-main-img {
+    width: 850px;
+    height: 510px;
+}
+
+.spot-detail-small-img {
+    width: 425px;
+    height: 250px;
+    margin: 1px 3px;
+}
+
+.small-img-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.below-img-container {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 40px;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+}
+
+.reserve-container {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    width: 20%;
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 50px;
+}
+
+.reserve-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reserve-star-rating-num-review {
+    display: flex;
+    align-items: center;
+}
+
+.cost-per-night {
+    font-size: 20px;
+}
+
+.reserve-button {
+    background-color: #d84228;
+    width: 100%;
+    height: 60px;
+    color: white;
+    font-size: larger;
+    border: 3px solid black;
+  }
+
+  .reserve-button:hover {
+    cursor: pointer;
+  }
