@@ -21,7 +21,7 @@
 .new-spot-container {
     display: flex;
     justify-content: space-evenly;
-    width: fit-content;
+    width: fit-content; 
 }
 
 /* .new-spot-container:hover {

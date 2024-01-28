@@ -1,0 +1,23 @@
+.spot-form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgb(228, 227, 227);
+    border-radius: 8px;
+}
+
+.country-input, .address-input, .city-input, .state-input, .spot-name-input, .price-input, .image-url-input, .preview-image-url {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-title-before-label {
+    margin-bottom: 30px;
+}
+
+.form-errors {
+    color: red;
+}
