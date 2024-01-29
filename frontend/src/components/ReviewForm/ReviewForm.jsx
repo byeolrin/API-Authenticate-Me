@@ -62,7 +62,7 @@ const ReviewForm = ({ spotId }) => {
                 <FaStar
                   className="star"
                   color={
-                    ratingValue <= (hover || stars) ? "#FFFDD0" : "#e4e5e9"
+                    ratingValue <= (hover || stars) ? "#ff9966" : "#e4e5e9"
                   }
                   size={35}
                   onMouseEnter={() => setHover(ratingValue)}

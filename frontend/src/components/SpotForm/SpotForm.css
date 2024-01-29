@@ -6,7 +6,17 @@
     border-radius: 8px;
 }
 
-.country-input, .address-input, .city-input, .state-input, .spot-name-input, .price-input, .image-url-input, .preview-image-url {
+.country-input,
+.address-input,
+.city-input,
+.state-input,
+.spot-name-input,
+.price-input,
+.name-input,
+.main-img,
+.lat-input,
+.lng-input,
+.small-img-preview {
     width: 100%;
     padding: 10px;
     border: 1px solid white;
@@ -20,4 +30,24 @@
 
 .form-errors {
     color: red;
+}
+
+
+.description-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 150px;
+}
+
+.price-field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.main-img, .small-img-preview {
+    margin: 5px 0px;
 }

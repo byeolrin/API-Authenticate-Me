@@ -12,9 +12,9 @@ const SpotForm = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [price, setPrice] = useState(1);
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
+  const [price, setPrice] = useState();
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
   const [description, setDescription] = useState("");
   const [mainImage, setMainImage] = useState("");
   const [img1, setImg1] = useState("");
@@ -184,11 +184,12 @@ const SpotForm = () => {
             )}
           </div>
         </label>
-        <label>
+        <label className="lat-lng-container">
           <p>Latitude, </p>
           <input
             type="text"
             placeholder="Latitude"
+            className="lat-input"
             value={lat}
             min={-90}
             max={90}
@@ -198,22 +199,24 @@ const SpotForm = () => {
           <input
             type="text"
             placeholder="Longitude"
+            className="lng-input"
             value={lng}
             min={-180}
             max={180}
             onChange={(e) => setLng(e.target.value)}
           />
         </label>
+        <br />
         <h3>Describe your place to guests</h3>
         <p>
           Mention the best features of your space, any special amenities like
-          fast wif or parking, and what you love about the neighborhood.
+          fast wifi or parking, and what you love about the neighborhood.
         </p>
         <label>
-          <p>Description</p>
           <textarea
             type="text"
-            placeholder="Description"
+            className="description-input"
+            placeholder="Please write at least 30 characters"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -231,6 +234,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="name-input"
             placeholder="Name of your spot"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -241,15 +245,17 @@ const SpotForm = () => {
             )}
           </div>
         </label>
+        <br />
         <h3>Set a base price for your spot</h3>
         <p>
           Competitive pricing can help your listing stand out and rank higher in
           search results.
         </p>
-        <label>
+        <label className="price-field">
           {`$ `}
           <input
             type="text"
+            className="price-input"
             placeholder="Price per night (USD)"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -266,6 +272,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="main-img"
             placeholder="Preview Image URL"
             value={mainImage}
             onChange={(e) => setMainImage(e.target.value)}
@@ -279,6 +286,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="small-img-preview"
             placeholder="Image URL"
             value={img1}
             onChange={(e) => setImg1(e.target.value)}
@@ -292,6 +300,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="small-img-preview"
             placeholder="Image URL"
             value={img2}
             onChange={(e) => setImg2(e.target.value)}
@@ -305,6 +314,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="small-img-preview"
             placeholder="Image URL"
             value={img3}
             onChange={(e) => setImg3(e.target.value)}
@@ -318,6 +328,7 @@ const SpotForm = () => {
         <label>
           <input
             type="text"
+            className="small-img-preview"
             placeholder="Image URL"
             value={img4}
             onChange={(e) => setImg4(e.target.value)}

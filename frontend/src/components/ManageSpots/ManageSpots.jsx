@@ -20,7 +20,8 @@ const ManageSpots = () => {
   return (
     <>
       <div className="create-spot-button-space">
-        <button>
+        <h2>Manage Spots</h2>
+        <button>    
           <NavLink to="/spots/new" className="nav-bar-create-a-spot">
             Create a New Spot
           </NavLink>
@@ -30,27 +31,35 @@ const ManageSpots = () => {
         {ownedSpots.map((spot) => (
           <div key={spot.id}>
             <NavLink to={`/spots/${spot.id}`} key={spot.id}>
-            <div className="new-spot" title={spot.name}>
-                      <img id="spot-img" src={`${spot.previewImage}`} />
-                      <div className="name-review">
-                          {/* <div className="name"><b>{spot.name}</b></div> */}
-                      </div>
-                      <div className="review-location">
-                          <div className="review"><b>★ {spot.avgRating > 0 ? spot.avgRating.toFixed(1) : 'New'}</b></div>
-                      <div className="location">{spot.city}, {spot.state}</div> 
-                      {/* <div className="country">{spot.country}</div> */}
-                      </div>
-                      <div className="price"><b>${spot.price}</b> night</div>
+              <div className="new-spot" title={spot.name}>
+                <img id="spot-img" src={`${spot.previewImage}`} />
+                <div className="name-review">
+                  {/* <div className="name"><b>{spot.name}</b></div> */}
+                </div>
+                <div className="review-location">
+                  <div className="review">
+                    <b>
+                      ★ {spot.avgRating > 0 ? spot.avgRating.toFixed(1) : "New"}
+                    </b>
                   </div>
+                  <div className="location">
+                    {spot.city}, {spot.state}
+                  </div>
+                  {/* <div className="country">{spot.country}</div> */}
+                </div>
+                <div className="price">
+                  <b>${spot.price}</b> night
+                </div>
+              </div>
             </NavLink>
-             <div className="update-and-delete-button">
-            <button>
+            <div className="update-and-delete-button">
+              <button>
                 <NavLink to={`/spots/${spot.id}/edit`}>Update</NavLink>
               </button>
               <OpenModalButton
-              buttonText="Delete"
-              modalComponent={<DeleteSpot spot={spot} />}
-            />
+                buttonText="Delete"
+                modalComponent={<DeleteSpot spot={spot} />}
+              />
             </div>
           </div>
         ))}
