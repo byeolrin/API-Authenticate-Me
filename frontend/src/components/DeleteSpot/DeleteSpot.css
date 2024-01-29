@@ -1,0 +1,23 @@
+.delete-spot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#confirm-delete {
+    background-color: #d84228;
+    width: 100%;
+    height: 60px;
+    color: white;
+    font-size: larger;
+    border: 3px solid black;
+}
+
+#no-delete {
+    background-color: lightslategray;
+    width: 100%;
+    height: 60px;
+    color: white;
+    font-size: larger;
+    border: 3px solid black;
+}
