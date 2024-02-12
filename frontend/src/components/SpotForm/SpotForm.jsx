@@ -124,12 +124,12 @@ const SpotForm = () => {
     <div className="spot-form-container">
       <form className="spot-form" onSubmit={onSubmit}>
         <div className="form-title-before-label">
-        <h2>Create a new Spot</h2>
-        <h3>Where&apos;s your place located?</h3>
-        <p>
-          Guests will only get your exact address once they booked a
-          reservation.
-        </p>
+          <h2>Create a new Spot</h2>
+          <h3>Where&apos;s your place located?</h3>
+          <p>
+            Guests will only get your exact address once they booked a
+            reservation.
+          </p>
         </div>
         <label>
           <p>Country</p>
@@ -170,6 +170,11 @@ const SpotForm = () => {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
+          <div className="form-errors">
+            {submitted && "city" in validationErrors && (
+              <p>{validationErrors.city}</p>
+            )}
+          </div>
           <p>State</p>
           <input
             type="text"

@@ -171,6 +171,11 @@ const EditForm = () => {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
+          <div className="form-errors">
+            {submitted && "city" in validationErrors && (
+              <p>{validationErrors.city}</p>
+            )}
+          </div>
           <p>State</p>
           <input
             type="text"
