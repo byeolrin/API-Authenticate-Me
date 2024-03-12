@@ -55,7 +55,7 @@
 }
 
 .cost-per-night {
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .reserve-button {
@@ -65,8 +65,10 @@
     color: white;
     font-size: larger;
     border: 3px solid black;
+    border-radius: 4px;
   }
 
   .reserve-button:hover {
+    background-color: #d47969;
     cursor: pointer;
   }

@@ -87,7 +87,7 @@ function SpotDetails() {
                 <div className="star-rating">
                   ★{" "}
                   {spot.avgStarRating > 0
-                    ? ` ${spot.avgStarRating.toFixed(1)} ·  `
+                    ? `${spot.avgStarRating.toFixed(1)}`
                     : "New"}
                 </div>
                 <div className="num-of-reviews">
